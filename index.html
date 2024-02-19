@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <title>Lab 2 | COMP1073 Client-Side JavaScript</title>
+    <style>
+        html {
+            font-family: sans-serif;
+            font-size: 200%;
+            background-color: rgb(0, 0, 0);
+            color: rgb(255, 255, 255);
+            transition-property: background-color;
+            transition-duration: 0.25s;
+        }
+
+        input[type="range"] {
+            width: 100%;
+            margin-bottom: 10px;
+            -webkit-appearance: none;
+            background-color: rgba(255, 255, 255, 0.3);
+            border-radius: 5px;
+        }
+
+        input[type="range"]::-webkit-slider-thumb {
+            -webkit-appearance: none;
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background-color: white;
+            box-shadow: 0 0 2px rgba(0, 0, 0, 0.5);
+            cursor: pointer;
+        }
+
+        input[type="range"]::-webkit-slider-thumb:hover {
+            background-color: rgba(255, 255, 255, 0.8);
+        }
+    </style>
+</head>
+
+<body>
+<h1>Lab 2</h1>
+<p>
+    This script will enable the user to adjust the below range input
+    elements to modify the
+    <abbr title="Red, Green, Blue">RGB</abbr> values of the
+    <code>background-color</code> CSS property of the HTML element.
+</p>
+<label for="red">Red</label>
+<input id="red" type="range" min="0" max="255" value="0" />
+<label for="green">Green</label>
+<input id="green" type="range" min="0" max="255" value="0" />
+<label for="blue">Blue</label>
+<input id="blue" type="range" min="0" max="255" value="0" />
+
+<script>
+    var pageBg = document.querySelector("html");
+    var sliders = document.getElementsByTagName("input");
+    var rgb = [0, 0, 0];
+
+    for (var i = 0; i < sliders.length; i++) {
+        sliders[i].oninput = function () {
+            var whichSlider = this.getAttribute("id");
+            var sliderValue = this.value;
+            var newRgb = changeRgb(whichSlider, sliderValue);
+            var newCSS = writeCSS(newRgb);
+            pageBg.style.backgroundColor = newCSS;
+        };
+    }
+
+    function changeRgb(channel, value) {
+        switch (channel) {
+            case "red":
+                rgb[0] = value;
+                break;
+            case "green":
+                rgb[1] = value;
+                break;
+            case "blue":
+                rgb[2] = value;
+                break;
+        }
+        return rgb;
+    }
+
+    function writeCSS(newRgb) {
+        var newColor = 'rgb(' + newRgb.join(',') + ')';
+        return newColor;
+    }
+
+/* Functions
+-------------------------------------------------- */
+// STEP 1: Write a function called changeRgb that accepts two
+//parameters, channel and value
+
+// STEP 2: Build a switch based on the value of the channel
+//parameter (red, green, or blue) (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/switch)
+
+// STEP 3: Inside each case, update the appropriate
+// global rgb array element (0, 1, or 2)
+
+// STEP 4: Return the updated rgb array back to the event handler
+
+
+// STEP 5: Write a new function called writeCSS that accepts one parameter, the updated rgb array
+
+/* STEP 6: Declare a new local variable called newColor that will contain the new string that will be used to update the CSS
+background-color property in the following format: rgb(0,0,0) - initialize it with the start of the string, 'rgb(' */
+
+// STEP 7: Create a while loop that iterates through the array passed into this function, called newRgb (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Statements/while)
+
+// STEP 8: For each element of the array, add to the string newColor, the red, green, and blue values, each followed by a comma
+
+// STEP 9: Slice off the last comma from the string contained by the variable, newColor - we don’t need it (https://developer.mozilla.org/en-US/docs/Web/JavaScript/Reference/Global_Objects/Array/slice)
+
+// STEP 10: Finish off the newColor string by adding the closing ')'
+
+// STEP 11: Return the string newColor back to the event handler
+
+// STEP 12: Enjoy the application in your browser!
+
+// This page inspired by https://developer.mozilla.org/en-US/docs/Learn/JavaScript/Building_blocks/Return_values
+</script>
+</body>
+
+</html>
